@@ -1,0 +1,24 @@
+POD & Deployment
+-----------------
+basic deployable unit in Kubernetes
+POD is mortal, ephemeral.
+It gets deleted and new ip is assigned everytime, so we cannot rely on pods. 
+It cant scale with itself, it means no replicas.
+Pods - runs one or more closely related containers
+Deployment - Maintains a set of identical pods, ensuring that they have the correct config and that the right number of them exist.
+
+Pods:
+----------
+Runs a single set of containers
+Good for one-off dev purposes
+Rarely used directly in production
+No rolling updates
+
+
+Deployment:
+-----------
+Runs a set of identical pods
+Monitors the state of each pod, updating as necessary
+Good for dev
+Good for production
+You can rollout and rollback your changes using deployment

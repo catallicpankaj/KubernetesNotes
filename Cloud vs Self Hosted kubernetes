@@ -1,0 +1,18 @@
+Cloud vs Self Hosted kubernetes
+-----
+SelfHosted
+
+You provision vms
+you configure vms
+you use scripts to deploy cluster
+you maintain vms yourself
+Eg: Kubernetes on AWS can be managed using kops or kubeone
+
+Hosted Solutions
+----
+
+Kubernetes as a service
+provider provision vms
+provider installs kubernetes
+provider maintains vms
+eg: AKS --Azure Kubernetes service EKS- Amazon Elastic k8s Service  GKE  Google Kubernetes Engine.

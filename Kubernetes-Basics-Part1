@@ -1,0 +1,48 @@
+Container : A container is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another.
+
+
+Nodes - Node is a  machine physical/virtual on which k8s is installed.
+And this is where our containers will be launched.
+
+This was also known as minions earlier.
+
+What  if Node fails... then app is down.. so we need more than one node.
+
+
+Multiple Nodes... 
+
+
+CLUSTER - Multiple nodes.. are known as clusters. Nodes are interchangeably accessible.
+
+-------
+Moreover having multiple Nodes helps to share the load as well within the cluster.
+
+
+Who manages this cluster.. 
+
+where is Info about members of the cluster stored.. 
+Who monitors the nodes failures. 
+How do you know if one node is failed where the request needs to be redirected to?
+
+
+MASTER - Another node having special privileges to monitor the cluster and balance them with replicas. And responsible for container orchestraton as well.  
+------
+
+
+Basic Components of Kubernetes
+------------------------------
+
+api-server --> This acts as a frontend for kubernetes. Users management devices command line interface all go via this to interact with k8s cluster.
+etcd --> Distributed reliable key value store used by K8s, to store all data used to manage cluster. Multiple node and clusters, then it stores all the data.
+kubelet -- Agent, ensures all containers are running on the node as expected. kube api server in Master interacts with kubelet to get the details of nodes from 
+container runtime -- underlying software used to run containers. Generally used is docker here. Rkt, CRI-o are among others
+controller -- Responsible for noticing and responding for any node/containers/endpoints failures. Controller make decisions to bring new containers. 
+scheduler -- Schedule the containers in the nodes. 
+
+
+How is elected as master and other as worker node. 
+------------------
+
+
+
+Kubectl --- command line tool to interact with masters and node.. 

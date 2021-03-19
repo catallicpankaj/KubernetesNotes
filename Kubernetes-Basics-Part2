@@ -1,0 +1,50 @@
+Kubeadm
+
+Master 
+</> kube-apiserver
+etcd
+node-controller
+replica-controller
+
+
+Worker Node 1
+containerRuntime - Docker .. 
+Kubelet
+
+Worker Node 2
+containerRuntime - Docker .. 
+Kubelet
+
+
+
+
+Steps to setup a cluster using kubeadm tool:
+------
+Have multiple virtual machines provisioned as Master and Worker Nodes
+Once provision designate one as Master and other as Worker Ndoes.
+
+Install container runtime, docker on all the nodes.
+
+Install Kubeadm tool on all the nodes. This helps us to bootstrap the k8s solution by installing and configuring all the k8s components on right nodes in right order. 
+
+Initialize Master server.
+
+Before joining worker nodes on Master .. Network connections need to be managed. 
+Master - Worker Node -- POD Network is required. that will help to communicate across
+
+And then Join the node.. 
+
+
+
+
+MASTER         			WORKER NODE1 				Workder Node 2
+				     Join Node to Master         Join Node to Master
+---------------------------------------------------------------------------
+						POD Network
+---------------------------------------------------------------------------
+
+Initialize
+Kubeadm   				Kubeadm 					kubeadm
+docker   				docker 						docker
+
+

@@ -1,0 +1,116 @@
+Replication Controller & ReplicaSet
+
+Ensures that the number of pods specified are available at any given moment of time. 
+
+Even though we have requirement of single pod running we can have replicationController mentioning number of pod required to be 1, and that will ensure that if a pod goes down due to abc reason a new pod is always spinned up, hence ensuring HA.
+
+
+
+2. LoadBalancing & scaling.
+
+Balance the number of coming requests as per availability of resources.
+
+
+
+Req 1 				Req 2			Req 3 			Req 4 
+
+
+Cluster 
+---------------------------------------------------------------------------------------------------
+
+Node 							Node											Node
+----------------------     ----------------------					---------------------------
+POD1 POD2 (if out of resources and more requests pump in)---------------------- POD3 POD4
+
+------------------------------------------------------------------------------------------------------------
+							REPLICATION CONTROLLER 
+
+
+
+ReplicationController vs ReplicaSet
+
+
+Replication Controller old technology  - -- ReplicaSet new technology ... it replaced ReplicationController
+
+
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: reactive-app-rc
+  labels:
+    tier: backend
+    app: reactive-app-demok8s
+spec:
+  template:
+    metadata:
+      name: reactive-app-pod
+      labels:
+        tier: backend
+        app: reactive-app-demok8s
+    spec:
+      containers:
+        - name: reactive-app
+          image: catallicpankaj/reactiveapp1:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ENV
+              value: dev
+            - name: spring.profiles.active
+              value: dev
+  replicas: 2
+
+
+
+ReplicaSet
+
+
+apiVersion: v1
+kind: ReplicaSet
+metadata:
+  name: reactive-app-rs
+  labels:
+    tier: backend
+    app: reactive-app-demok8s
+spec:
+  template:
+    metadata:
+      name: reactive-app-pod
+      labels:
+        tier: backend
+        app: reactive-app-demok8s
+    spec:
+      containers:
+        - name: reactive-app
+          image: catallicpankaj/reactiveapp1:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ENV
+              value: dev
+            - name: spring.profiles.active
+              value: dev
+  replicas: 2
+  selector:
+  	matchLabels:
+  	   tier: backend
+  	   app: reactive-app-demok8s
+
+
+
+
+Selector is required to determine out of 100s of pod in a node which one to monitor and scale.
+
+kubectl replace -f reactive-app-replicaset.yaml -n testing
+
+
+kubectl scale --replicas=6 -f reactive-app-replicaset.yaml -n testing
+
+kubectl scale --replicas=6 
+
+
+
+
+

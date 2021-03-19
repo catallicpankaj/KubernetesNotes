@@ -1,0 +1,47 @@
+Create a Image for any Springboot project Spring boot version should be greater than 2.3.x
+------------------
+	mvn spring-boot:build-image -Dspring-boot.build-image.imageName=catallicpankaj/reactiveapp1
+
+Install Docker and run following commands.
+------------------
+	docker images
+	docker ps
+	Run a container from the image created above.
+		docker run -it -p8080:8102 catallicpankaj/reactiveapp1:latest
+
+Install minikube and start using below command:
+------------------
+	minikube status
+	minikube start --driver=virtualbox
+
+Set the docker space to be used and publish all the images here using above spring boot command (PS: you might need to re-run the build image command as it is new space where docker images will be stored.)
+------------------
+	eval $(minikube docker-env) 
+
+
+NAMESPACES - Namespaces are Kubernetes objects which partition a single Kubernetes cluster into multiple virtual clusters.
+------------------
+
+default -- The default namespace for objects with no other namespace
+kube-system -- The namespace for objects created by the Kubernetes system
+kube-public -- This namespace is created automatically and is readable by all users (including those not authenticated). This namespace is mostly reserved for cluster usage, in case that some resources should be visible and readable publicly throughout the whole cluster. The public aspect of this namespace is only a convention, not a requirement.
+kube-node-lease -- This namespace for the lease objects associated with each node which improves the performance of the node heartbeats as the cluster scales.
+
+Commands related to namespaces
+------------------
+	kubectl get namespaces
+	kubectl create namespace <NAME-SPACE NAME HERE>
+	kubectl delete namespaces <insert-some-namespace-name>
+
+Creating a namespace via YAML (save it somewhere and run the command)
+-----------------------------
+
+	apiVersion: v1
+	kind: Namespace
+	metadata:
+ 	 name: <namespaceName here>
+
+kubectl create -f <FileName>
+
+              
+

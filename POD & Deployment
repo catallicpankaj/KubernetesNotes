@@ -22,3 +22,79 @@ Monitors the state of each pod, updating as necessary
 Good for dev
 Good for production
 You can rollout and rollback your changes using deployment
+
+
+Pod YAML FILE
+=======
+apiVersion: v1
+kind: Pod
+metadata:
+  name: reactive-app-pod
+  labels:
+    tier: backend
+    app: reactive-app-demok8s
+spec:
+  containers:
+    - name: reactive-app
+      image: catallicpankaj/reactiveapp1:latest
+      imagePullPolicy: Never
+      ports:
+        - containerPort: 8080
+      env:
+        - name: ENV
+          value: dev
+        - name: spring.profiles.active
+          value: dev
+
+Commands to create and get the details of PODs
+----------	  
+kubectl create -f reactive-app-pod.yaml
+kubectl describe pods --namespace=test
+
+
+Deployment YAML FILE
+------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reactive-app-deployment
+  labels:
+    tier: backend
+    app: reactive-app-demok8s
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: backend
+      app: reactive-app-demok8s
+  template:
+      metadata:
+        name: reactive-app-pod
+        labels:
+          tier: backend
+          app: reactive-app-demok8s
+      spec:
+        containers:
+          - name: reactive-app
+            image: catallicpankaj/reactiveapp1:latest
+            imagePullPolicy: Never
+            ports:
+              - containerPort: 8080
+            env:
+              - name: ENV
+                value: dev
+              - name: spring.profiles.active
+                value: dev
+
+Commands to create and get the details of PODs
+----------	  
+kubectl create -f reactive-app-deployment.yaml
+kubectl describe pods --namespace=test
+
+Command to Scale UP/DOWN 
+--------
+kubectl scale deployment reactive-app-deployment --replicas=3 -n testing
+
+
+
+
